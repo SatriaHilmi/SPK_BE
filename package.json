@@ -22,7 +22,8 @@
     "express-list-endpoints": "^7.1.1",
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "joi": "^17.13.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
