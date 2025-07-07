@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  email    String  @unique
+  username String  @unique
+  name     String?
+  password String
+  role     Role    @default(USER)
+  photo    String?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Kriteria {
+  id          String        @id @default(cuid())
+  code        String        @unique
+  name        String
+  weight      Int
+  criteria    Criteria
+  subKriteria subKriteria[]
+  createAt    DateTime?
+  updateAt    DateTime?
+}
+
+enum Criteria {
+  COST
+  BENEFIT
+}
+
+model JenisAlatMusik {
+  id          String        @id @default(cuid())
+  nama        String        @unique
+  subKriteria subKriteria[]
+}
+
+model subKriteria {
+  id         String         @id @default(cuid())
+  alternatif String
+  codeId     String
+  namaId     String
+  nilai      Int
+  kriteria   Kriteria       @relation(fields: [codeId], references: [code], onDelete: Cascade)
+  jenis      JenisAlatMusik @relation(fields: [namaId], references: [nama], onDelete: Cascade)
+}
